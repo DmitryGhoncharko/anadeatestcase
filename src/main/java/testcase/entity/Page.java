@@ -3,7 +3,8 @@ package testcase.entity;
 import java.sql.Date;
 import java.util.Objects;
 
-public class Page implements Entity{
+public class Page{
+    private final long id;
     private final String title;
     private final String description;
     private final String slug;
@@ -14,6 +15,7 @@ public class Page implements Entity{
     private final int priority;
 
     private Page(Builder builder){
+        id = builder.id;
         title = builder.title;
         description = builder.description;
         slug = builder.slug;
@@ -22,6 +24,10 @@ public class Page implements Entity{
         content = builder.content;
         publishedAt = builder.publishedAt;
         priority = builder.priority;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -63,6 +69,7 @@ public class Page implements Entity{
 
         Page page = (Page) o;
 
+        if (id != page.id) return false;
         if (priority != page.priority) return false;
         if (!Objects.equals(title, page.title)) return false;
         if (!Objects.equals(description, page.description)) return false;
@@ -75,7 +82,8 @@ public class Page implements Entity{
 
     @Override
     public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (slug != null ? slug.hashCode() : 0);
         result = 31 * result + (menuLabel != null ? menuLabel.hashCode() : 0);
@@ -89,7 +97,8 @@ public class Page implements Entity{
     @Override
     public String toString() {
         return "Page{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", slug='" + slug + '\'' +
                 ", menuLabel='" + menuLabel + '\'' +
@@ -101,6 +110,7 @@ public class Page implements Entity{
     }
 
     public static class Builder{
+        private long id;
         private String title;
         private String description;
         private String slug;
@@ -109,6 +119,11 @@ public class Page implements Entity{
         private String content;
         private Date publishedAt;
         private int priority;
+
+        public Builder withId(long id){
+            this.id = id;
+            return this;
+        }
 
         public Builder withTitle(String title){
             this.title = title;
