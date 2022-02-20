@@ -3,16 +3,16 @@ package testcase.command;
 import java.util.Optional;
 
 public class ServiceLocator {
-    private static Cache cache = new Cache();
+    private static final Cache CACHE = new Cache();
 
     public Command getCommand(String commandName){
-        final Optional<Command> commandFromCache = cache.getCommand(commandName);
+        final Optional<Command> commandFromCache = CACHE.getCommand(commandName);
         if(commandFromCache.isPresent()){
             return commandFromCache.get();
         }
-        InitialContext initialContext = new InitialContext();
+        final InitialContext initialContext = new InitialContext();
         final Command command = initialContext.lookup(commandName);
-        cache.addCommand(commandName,command);
+        CACHE.addCommand(commandName,command);
         return command;
     }
 }
