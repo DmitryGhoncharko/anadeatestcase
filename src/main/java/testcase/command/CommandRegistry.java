@@ -6,6 +6,7 @@ import java.util.List;
 
 public class CommandRegistry {
     private static final List<CommandRegistry> COMMAND_REGISTRY_LIST = Collections.emptyList();
+
     private final Command command;
     private final String commandName;
     private CommandRegistry(Command command, String commandName) {
