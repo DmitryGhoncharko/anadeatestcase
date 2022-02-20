@@ -14,6 +14,8 @@ public class InitialContext {
         switch (commandName){
             case "menuPage": return new ShowMenuPageCommand(pageService, requestFactory);
 
+            case "showPage": return new ShowPageCommand(pageService,requestFactory);
+
             default: return new ShowMenuPageCommand(pageService,requestFactory);
         }
     }
