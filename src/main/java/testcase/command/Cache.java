@@ -9,7 +9,7 @@ public class Cache {
     private final Map<String, Command> commandCache = new ConcurrentHashMap<>();
 
     public Optional<Command> getCommand(String commandName){
-        return Optional.of(commandCache.get(commandName));
+        return Optional.ofNullable(commandCache.get(commandName));
     }
     public void addCommand(String commandName, Command command){
         commandCache.put(commandName,command);
