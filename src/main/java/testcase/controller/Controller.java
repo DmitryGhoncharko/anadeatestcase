@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import testcase.command.Command;
 import testcase.command.CommandRequest;
 import testcase.command.CommandResponse;
+import testcase.command.ServiceLocator;
 import testcase.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
@@ -22,7 +23,7 @@ public class Controller extends HttpServlet {
     private static final String COMMAND_NAME_PARAM = "command";
 
     private static final RequestFactory REQUEST_FACTORY = RequestFactory.getInstance();
-
+    private static final ServiceLocator SERVICE_LOCATOR = new ServiceLocator();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         LOG.trace("caught req and resp in doGet method");
@@ -46,7 +47,7 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws ServiceException {
         final String commandName = httpRequest.getParameter(COMMAND_NAME_PARAM);
-        final Command command = Command.of(commandName);
+        final Command command = SERVICE_LOCATOR.getCommand(commandName);
         final CommandRequest commandRequest = REQUEST_FACTORY.createRequest(httpRequest);
         final CommandResponse commandResponse = command.execute(commandRequest);
         proceedWithResponse(httpRequest, httpResponse, commandResponse);
