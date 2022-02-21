@@ -14,7 +14,7 @@ public class UrlRewriteFilter implements Filter {
     private static final String REGEXP_FOR_FIND_COMMAND_FOR_SERVLET = "^http://.+:[0-9]+/controller\\?command=[a-zA-Z0-9]+([&][a-zA-Z0-9]+[=][a-zA-Z0-9]+)*$";
     private static final String REGEXP_FOR_STATIC_CONTENT = "^http://.+:[0-9]+/static/images.*";
     private static final String CONTROLLER_COMMAND_SHOW_PAGE_BY_PAGE_SLUG = "/controller?command=showPage&pageSlug=";
-    private static final String REGEXP_FOR_EXTRACT_SLUG_FROM_URL = "^http://.+:[0-9]+/$";
+    private static final String REGEXP_FOR_EXTRACT_SLUG_FROM_URL = "http://.+:[0-9]+/";
     private static final String REPLACEMENT_ON_EMPTY_TEXT = "";
     private static final String URL_PARAM_DEFINITOIN_SYMBOL = "?";
 
@@ -29,7 +29,7 @@ public class UrlRewriteFilter implements Filter {
        }else {
            final Optional<String> pageSlug = extractPageSlugFromUrl(urlAndQueryString);
            if(pageSlug.isPresent()){
-               final RequestDispatcher dispatcher = servletRequest.getRequestDispatcher(CONTROLLER_COMMAND_SHOW_PAGE_BY_PAGE_SLUG + pageSlug);
+               final RequestDispatcher dispatcher = servletRequest.getRequestDispatcher(CONTROLLER_COMMAND_SHOW_PAGE_BY_PAGE_SLUG + pageSlug.get());
                dispatcher.forward(servletRequest, servletResponse);
            }else {
                filterChain.doFilter(servletRequest,servletResponse);
@@ -50,8 +50,12 @@ public class UrlRewriteFilter implements Filter {
     private Optional<String> extractPageSlugFromUrl(StringBuffer urlAndQueryString){
         final Pattern pattern = Pattern.compile(REGEXP_FOR_EXTRACT_SLUG_FROM_URL);
         final Matcher matcher = pattern.matcher(urlAndQueryString);
-        final String pageSlug = matcher.replaceFirst(REPLACEMENT_ON_EMPTY_TEXT);
-        return pageSlug.length()>0?Optional.of(pageSlug):Optional.empty();
+        if(matcher.find()){
+            final String pageSlug = matcher.replaceFirst(REPLACEMENT_ON_EMPTY_TEXT);
+            System.out.println(pageSlug);
+            return pageSlug.length()>0?Optional.of(pageSlug):Optional.empty();
+        }
+        return Optional.empty();
     }
     private StringBuffer createUrlAndQueryStringWithQueryStringValidation(StringBuffer url, String queryString){
         if(queryString==null){

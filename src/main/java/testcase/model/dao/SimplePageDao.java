@@ -28,12 +28,12 @@ public class SimplePageDao implements PageDao{
             " VALUES (?,?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE_PAGE_BY_PAGE_SLUG = "UPDATE page" +
             " SET title = ?, description = ?, slug = ?, menu_label = ?, h1 = ?, published_at = ?, priority = ?, content = ?" +
-            " WHERE slug LIKE ?";
+            " WHERE slug LIKE ''''''?''''''";
     private static final String SQL_DELETE_PAGE_BY_PAGE_SLUG = "DELETE FROM page WHERE slug = ?";
 
     private static final String SQL_FIND_PAGE_BY_PAGE_SLUG = "SELECT id, title, description, slug, menu_label, h1, published_at, priority, content" +
             " FROM  page" +
-            " WHERE slug LIKE ?";
+            " WHERE slug=?";
 
     private final ConnectionPool connectionPool;
 
@@ -72,7 +72,7 @@ public class SimplePageDao implements PageDao{
     @Override
     public Optional<Page> findPageByPageSlug(String slug) throws DaoException {
         try(final Connection connection = connectionPool.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_PAGE_BY_PAGE_SLUG)){
-            preparedStatement.setString(1,slug);
+
             final ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 return Optional.of(createPageByResultSet(resultSet));

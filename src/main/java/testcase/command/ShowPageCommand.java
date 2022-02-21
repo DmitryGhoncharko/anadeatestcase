@@ -24,8 +24,8 @@ public class ShowPageCommand implements Command{
         try{
            final Optional<Page> pageFromDB = pageService.findPageByPageSlug(pageSlug);
            if(pageFromDB.isPresent()){
-               request.addAttributeToJsp("page",pageFromDB);
-               return requestFactory.createForwardResponse(PagePath.MENU.getPath());
+               request.addAttributeToJsp("page",pageFromDB.get());
+               return requestFactory.createForwardResponse(PagePath.PAGE.getPath());
            }
         }catch (ServiceException e){
             LOG.error("Service exception when try show page command",e);

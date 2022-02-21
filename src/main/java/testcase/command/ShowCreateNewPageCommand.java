@@ -8,11 +8,9 @@ import testcase.model.service.PageService;
 
 public class ShowCreateNewPageCommand implements Command{
     private static final Logger LOG = LoggerFactory.getLogger(ShowCreateNewPageCommand.class);
-    private final PageService pageService;
     private final RequestFactory requestFactory;
 
-    public ShowCreateNewPageCommand(PageService pageService, RequestFactory requestFactory) {
-        this.pageService = pageService;
+    public ShowCreateNewPageCommand(RequestFactory requestFactory) {
         this.requestFactory = requestFactory;
     }
 

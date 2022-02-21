@@ -83,12 +83,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="letter" class="text-center" style="padding-left: 50%">
+                            <label for="pageContentForCreate" class="text-center" style="padding-left: 50%">
                                 Page content
                             </label>
                             <p>
                             <script>edToolbar('pageContentForCreate'); </script>
-                            <textarea id="letter" required name="pageContentForCreate" class="ed" style="width: 100%; height: 400px"></textarea>
+                            <textarea id="pageContentForCreate" required name="pageContentForCreate" class="ed" style="width: 100%; height: 400px"></textarea>
                             </p>
                         </div>
                     </div>

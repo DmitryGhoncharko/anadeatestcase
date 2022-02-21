@@ -22,7 +22,7 @@ public class InitialContext {
 
             case "showPage": return new ShowPageCommand(pageService,requestFactory);
 
-            case "showCreateNewPage": return new ShowCreateNewPageCommand(pageService,requestFactory);
+            case "showCreateNewPage": return new ShowCreateNewPageCommand(requestFactory);
 
             case "createPage" : return new CreatePageCommand(pageService,requestFactory);
             case "menuPage":
