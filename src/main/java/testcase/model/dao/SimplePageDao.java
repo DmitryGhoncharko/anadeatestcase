@@ -72,7 +72,7 @@ public class SimplePageDao implements PageDao{
     @Override
     public Optional<Page> findPageByPageSlug(String slug) throws DaoException {
         try(final Connection connection = connectionPool.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_PAGE_BY_PAGE_SLUG)){
-
+            preparedStatement.setString(1,slug);
             final ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 return Optional.of(createPageByResultSet(resultSet));

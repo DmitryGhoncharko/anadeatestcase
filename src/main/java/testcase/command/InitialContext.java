@@ -25,6 +25,13 @@ public class InitialContext {
             case "showCreateNewPage": return new ShowCreateNewPageCommand(requestFactory);
 
             case "createPage" : return new CreatePageCommand(pageService,requestFactory);
+
+            case "deletePage" : return new DeletePageCommand(pageService,requestFactory);
+
+            case "showUpdatePage" : return  new ShowUpdatePageCommand(pageService,requestFactory);
+
+            case "updatePage" : return new UpdatePageCommand(pageService, requestFactory);
+
             case "menuPage":
 
             default: return new ShowMenuPageCommand(pageService,requestFactory);

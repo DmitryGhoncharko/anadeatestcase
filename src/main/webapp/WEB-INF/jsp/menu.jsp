@@ -56,13 +56,16 @@
                                 ${publishedPage.id}
                             </td>
                             <td>
-                                ${publishedPage.menuLabel}
+                                <a href="${publishedPage.menuLabel}" class="btn btn-primary">
+                                        ${publishedPage.menuLabel}
+                                </a>
+
                             </td>
                             <td>
                                ${publishedPage.priority}
                             </td>
                             <td>
-                                ${publishedPage.datePublished}
+                                ${publishedPage.publishedAt}
                             </td>
                         </tr>
                         </c:forEach>
