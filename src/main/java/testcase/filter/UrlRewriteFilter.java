@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 public class UrlRewriteFilter implements Filter {
 
     private static final String REGEXP_FOR_FIND_COMMAND_FOR_SERVLET = "^http://.+:[0-9]+/controller\\?command=[a-zA-Z0-9]+([&][a-zA-Z0-9]+[=][a-zA-Z0-9]+)*$";
+    private static final String REGEXP_FOR_STATIC_CONTENT = "^http://.+:[0-9]+/static/images.*";
     private static final String CONTROLLER_COMMAND_SHOW_PAGE_BY_PAGE_SLUG = "/controller?command=showPage&pageSlug=";
     private static final String REGEXP_FOR_EXTRACT_SLUG_FROM_URL = "^http://.+:[0-9]+/$";
     private static final String REPLACEMENT_ON_EMPTY_TEXT = "";
@@ -23,7 +24,7 @@ public class UrlRewriteFilter implements Filter {
        final StringBuffer url = httpServletRequest.getRequestURL();
        final String queryString = httpServletRequest.getQueryString();
        final StringBuffer urlAndQueryString = createUrlAndQueryStringWithQueryStringValidation(url,queryString);
-       if(urlIsCommandForServlet(urlAndQueryString)){
+       if(urlIsCommandForServlet(urlAndQueryString) || urlRequestToStaticContent(urlAndQueryString)){
            filterChain.doFilter(servletRequest, servletResponse);
        }else {
            final Optional<String> pageSlug = extractPageSlugFromUrl(urlAndQueryString);
@@ -38,6 +39,11 @@ public class UrlRewriteFilter implements Filter {
     
     private boolean urlIsCommandForServlet(StringBuffer urlAndQueryString){
         final Pattern pattern = Pattern.compile(REGEXP_FOR_FIND_COMMAND_FOR_SERVLET);
+        final Matcher matcher = pattern.matcher(urlAndQueryString);
+        return matcher.find();
+    }
+    private boolean urlRequestToStaticContent(StringBuffer urlAndQueryString){
+        final Pattern pattern = Pattern.compile(REGEXP_FOR_STATIC_CONTENT);
         final Matcher matcher = pattern.matcher(urlAndQueryString);
         return matcher.find();
     }

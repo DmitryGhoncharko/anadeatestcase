@@ -21,6 +21,15 @@
                     </h3>
                 </div>
             </div>
+            <c:if test="${not empty requestScope.success}">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissable" style="width: 100%">
+                       <strong>Success!</strong> ${requestScope.success}
+                    </div>
+                </div>
+            </div>
+            </c:if>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">
@@ -44,16 +53,16 @@
                         <c:forEach var="publishedPage" items="${requestScope.publishedPages}">
                         <tr>
                             <td>
-                                ${publishedPage.Id}
+                                ${publishedPage.id}
                             </td>
                             <td>
-                                ${publishedPage.MenuLabel}
+                                ${publishedPage.menuLabel}
                             </td>
                             <td>
-                               ${publishedPage.Priority}
+                               ${publishedPage.priority}
                             </td>
                             <td>
-                                ${publishedPage.DatePublished}
+                                ${publishedPage.datePublished}
                             </td>
                         </tr>
                         </c:forEach>

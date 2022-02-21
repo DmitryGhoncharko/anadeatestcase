@@ -6,24 +6,29 @@ import testcase.entity.Page;
 import testcase.exception.DaoException;
 import testcase.exception.ServiceException;
 import testcase.model.dao.PageDao;
+import testcase.validator.PageServiceValidator;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
 public class SimplePageService implements PageService{
     private static final Logger LOG = LoggerFactory.getLogger(SimplePageService.class);
     private final PageDao pageDao;
-
-    public SimplePageService(PageDao pageDao) {
+    private final PageServiceValidator pageServiceValidator;
+    public SimplePageService(PageDao pageDao, PageServiceValidator pageServiceValidator)
+    {
         this.pageDao = pageDao;
+        this.pageServiceValidator = pageServiceValidator;
     }
 
     @Override
-    public Optional<Page> createPage(Page page) throws ServiceException {
-        if(page==null){
+    public Optional<Page> createPage(String title, String description, String slug, String menuLabel, String h1, Date publishedAt, Integer priority, String content) throws ServiceException {
+        if(!pageServiceValidator.validateCreateAndUpdatePage(title, description, slug, menuLabel, h1, publishedAt, priority, content)){
             return Optional.empty();
         }
         try{
+            final Page page = createPageByParam(title, description, slug, menuLabel, h1, publishedAt, priority, content);
             return pageDao.createPage(page);
         }catch (DaoException e){
             LOG.error("Dao exception in service when try create page",e);
@@ -32,11 +37,12 @@ public class SimplePageService implements PageService{
     }
 
     @Override
-    public Optional<Page> updatePage(Page page) throws ServiceException {
-        if(page == null){
+    public Optional<Page> updatePage(String title, String description, String slug, String menuLabel, String h1, Date publishedAt, Integer priority, String content, Integer ... pageId) throws ServiceException {
+        if(!pageServiceValidator.validateCreateAndUpdatePage(title, description, slug, menuLabel, h1, publishedAt, priority, content)){
             return Optional.empty();
         }
         try{
+            final Page page = createPageByParam(title, description, slug, menuLabel, h1, publishedAt, priority, content);
             return pageDao.updatePage(page);
         }catch (DaoException e){
             LOG.error("Dao exception in service when try update page",e);
@@ -88,5 +94,17 @@ public class SimplePageService implements PageService{
             LOG.error("Dao exception in service when try find page by page slug",e);
             throw new ServiceException("Dao exception in service when try find page by page slug",e);
         }
+    }
+    private Page createPageByParam(String title, String description, String slug, String menuLabel, String h1, Date publishedAt, Integer priority, String content){
+        return new Page.Builder().
+                withTitle(title).
+                withDescription(description).
+                withSlug(slug).
+                withMenuLabel(menuLabel).
+                withH1(h1).
+                withDatePublished(publishedAt).
+                withPriority(priority).
+                withContent(content).
+                build();
     }
 }
