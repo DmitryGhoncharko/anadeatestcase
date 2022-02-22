@@ -8,14 +8,17 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+
 public class Cache {
     private static final Logger LOG = LoggerFactory.getLogger(Cache.class);
     private final Map<String, Command> commandCache = new ConcurrentHashMap<>();
+
 
     public Optional<Command> getCommand(String commandName) {
         LOG.info("Get command by name from cache");
         return Optional.ofNullable(commandCache.get(commandName));
     }
+
 
     public void addCommand(String commandName, Command command) {
         LOG.info("Add command into cache");
