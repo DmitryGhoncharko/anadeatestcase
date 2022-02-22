@@ -37,13 +37,13 @@ public class SimplePageService implements PageService {
     }
 
     @Override
-    public Optional<Page> updatePage(String title, String description, String slug, String menuLabel, String h1, Date publishedAt, Integer priority, String content, Long pageId) throws ServiceError {
+    public Optional<Page> updatePageById(String title, String description, String slug, String menuLabel, String h1, Date publishedAt, Integer priority, String content, Long pageId) throws ServiceError {
         if (!pageServiceValidator.validateCreateOrUpdatePage(title, description, slug, menuLabel, h1, publishedAt, priority, content, pageId)) {
             return Optional.empty();
         }
         try {
             final Page page = createPageByParam(title, description, slug, menuLabel, h1, publishedAt, priority, content, pageId);
-            return pageDao.updatePage(page);
+            return pageDao.updatePageById(page);
         } catch (DaoException e) {
             LOG.error("Dao exception in service when try update page", e);
             throw new ServiceError("Dao exception in service when try update page", e);

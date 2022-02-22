@@ -85,7 +85,7 @@ public class SimplePageDao implements PageDao {
     }
 
     @Override
-    public Optional<Page> updatePage(Page page) throws DaoException {
+    public Optional<Page> updatePageById(Page page) throws DaoException {
         try (final Connection connection = connectionPool.getConnection(); final PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_PAGE_BY_PAGE_ID)) {
             setPreparedStatementParamForCreateOrUpdatePageByPreparedStatementAndPageWithPageId(preparedStatement, page, page.getId());
             final int countRowsUpdated = preparedStatement.executeUpdate();

@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface PageService {
     Optional<Page> createPage(String title, String description, String slug, String menuLabel, String h1, Date publishedAt, Integer priority, String content) throws ServiceError;
 
-    Optional<Page> updatePage(String title, String description, String slug, String menuLabel, String h1, Date publishedAt, Integer priority, String content, Long pageId) throws ServiceError;
+    Optional<Page> updatePageById(String title, String description, String slug, String menuLabel, String h1, Date publishedAt, Integer priority, String content, Long pageId) throws ServiceError;
 
     List<Page> findAllPublishedPagesSortedByPriority() throws ServiceError;
 

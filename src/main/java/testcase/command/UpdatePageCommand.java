@@ -42,7 +42,7 @@ public class UpdatePageCommand implements Command {
         final Date pageDatePublishedForUpdate = Date.valueOf(request.getParameter(PAGE_DATE_PUBLISHED_FOR_UPDATE_PARAM_NAME));
         final Integer pagePriorityForUpdate = Integer.parseInt(request.getParameter(PAGE_PRIORITY_FOR_UPDATE_PARAM_NAME));
         try {
-            final Optional<Page> updatedPage = pageService.updatePage(pageTitleForUpdate, pageDescriptionForUpdate, pageSlugForUpdate, pageMenuLabelForUpdate, pageH1ForUpdate, pageDatePublishedForUpdate, pagePriorityForUpdate, pageContentForUpdate, pageId);
+            final Optional<Page> updatedPage = pageService.updatePageById(pageTitleForUpdate, pageDescriptionForUpdate, pageSlugForUpdate, pageMenuLabelForUpdate, pageH1ForUpdate, pageDatePublishedForUpdate, pagePriorityForUpdate, pageContentForUpdate, pageId);
             if (updatedPage.isPresent()) {
                 LOG.info("Page was updated");
                 return requestFactory.createRedirectResponse(CONTROLLER_COMMAND_MENU_PAGE);

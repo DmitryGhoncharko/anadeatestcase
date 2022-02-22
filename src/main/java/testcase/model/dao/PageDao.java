@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PageDao {
     Optional<Page> createPage(Page page) throws DaoException;
 
-    Optional<Page> updatePage(Page page) throws DaoException;
+    Optional<Page> updatePageById(Page page) throws DaoException;
 
     List<Page> findAllPublishedPagesSortedByPriority() throws DaoException;
 
