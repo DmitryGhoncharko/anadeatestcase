@@ -13,8 +13,4 @@ public interface RequestFactory {
 
     CommandResponse createRedirectResponse(String path);
 
-    static RequestFactory getInstance() {
-        return SimpleRequestFactory.getInstance();
-    }
-
 }

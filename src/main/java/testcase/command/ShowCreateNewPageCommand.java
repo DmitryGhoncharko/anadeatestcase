@@ -3,10 +3,8 @@ package testcase.command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import testcase.controller.RequestFactory;
-import testcase.exception.ServiceException;
-import testcase.model.service.PageService;
 
-public class ShowCreateNewPageCommand implements Command{
+public class ShowCreateNewPageCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(ShowCreateNewPageCommand.class);
     private final RequestFactory requestFactory;
 
@@ -15,7 +13,8 @@ public class ShowCreateNewPageCommand implements Command{
     }
 
     @Override
-    public CommandResponse execute(CommandRequest request){
+    public CommandResponse execute(CommandRequest request) {
+        LOG.info("Show create page path command execute");
         return requestFactory.createForwardResponse(PagePath.CREATE_PAGE.getPath());
     }
 }

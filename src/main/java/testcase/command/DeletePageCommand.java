@@ -3,11 +3,13 @@ package testcase.command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import testcase.controller.RequestFactory;
-import testcase.exception.ServiceException;
+import testcase.exception.ServiceError;
 import testcase.model.service.PageService;
 
-public class DeletePageCommand implements Command{
+public class DeletePageCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(DeletePageCommand.class);
+    private static final String PAGE_SLUG_PARAM_NAME = "pageSlug";
+    private static final String CONTROLLER_COMMAND_MENU_PAGE = "/controller?command=menuPage";
     private final PageService pageService;
     private final RequestFactory requestFactory;
 
@@ -17,14 +19,19 @@ public class DeletePageCommand implements Command{
     }
 
     @Override
-    public CommandResponse execute(CommandRequest request) throws ServiceException {
-        final String pageSlug = request.getParameter("pageSlug");
-        final boolean pageIsDeleted = pageService.deletePageByPageSlug(pageSlug);
-        if(pageIsDeleted){
-            request.addAttributeToJsp("success", "Page was deleted");
-            return requestFactory.createRedirectResponse("/controller?command=menuPage");
+    public CommandResponse execute(CommandRequest request) throws ServiceError {
+        final String pageSlug = request.getParameter(PAGE_SLUG_PARAM_NAME);
+        try {
+            final boolean pageIsDeleted = pageService.deletePageByPageSlug(pageSlug);
+            if (pageIsDeleted) {
+                LOG.info("Page was deleted pageSlug: " + pageSlug);
+                return requestFactory.createRedirectResponse(CONTROLLER_COMMAND_MENU_PAGE);
+            }
+        } catch (ServiceError e) {
+            LOG.error("Service exception when we try delete page by slug. slug: " + pageSlug, e);
+            throw e;
         }
-        request.addAttributeToJsp("fail","Page not created, please try to create page with new params, slug may be unique");
-        return requestFactory.createForwardResponse(PagePath.PAGE.getPath());
+        LOG.info("Page dont deleted by slug. Slug: " + pageSlug);
+        return requestFactory.createForwardResponse(PagePath.ERROR.getPath());
     }
 }

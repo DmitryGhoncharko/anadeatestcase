@@ -21,15 +21,6 @@
                     </h3>
                 </div>
             </div>
-            <c:if test="${not empty requestScope.success}">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="alert alert-success alert-dismissable" style="width: 100%">
-                       <strong>Success!</strong> ${requestScope.success}
-                    </div>
-                </div>
-            </div>
-            </c:if>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">

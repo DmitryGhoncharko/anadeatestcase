@@ -1,10 +1,9 @@
 package testcase.command;
 
-import testcase.exception.ServiceException;
+import testcase.exception.ServiceError;
 
 public interface Command {
 
-    CommandResponse execute(CommandRequest request) throws ServiceException;
-
+    CommandResponse execute(CommandRequest request) throws ServiceError;
 
 }

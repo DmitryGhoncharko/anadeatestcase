@@ -20,15 +20,6 @@
                     <jsp:include page="header.jsp"></jsp:include>
                 </div>
             </div>
-            <c:if test="${not empty requestScope.fail}">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert alert-dismissable alert-danger" style="width: 100%">
-                            <strong>Fail!</strong> ${requestScope.fail}
-                        </div>
-                    </div>
-                </div>
-            </c:if>
             <form role="form" action="/controller?command=createPage" method="post">
             <div class="row">
                 <div class="col-md-12">
@@ -46,7 +37,7 @@
                             <label for="pageDescriptionId" class="text-center" style="padding-left: 50%">
                                 Page description
                             </label>
-                            <textarea type="text" pattern=".+" name="pageDescriptionForCreate" required lang="en" class="form-control" style="height: 400px" id="pageDescriptionId"></textarea>
+                            <textarea type="text" pattern=".{1,}" name="pageDescriptionForCreate" required lang="en" class="form-control" style="height: 400px" id="pageDescriptionId"></textarea>
                         </div>
                     </div>
                 </div>

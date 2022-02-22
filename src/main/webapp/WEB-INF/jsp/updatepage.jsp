@@ -20,24 +20,16 @@
                     <jsp:include page="header.jsp"></jsp:include>
                 </div>
             </div>
-            <c:if test="${not empty requestScope.fail}">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert alert-dismissable alert-danger" style="width: 100%">
-                            <strong>Fail!</strong> ${requestScope.fail}
-                        </div>
-                    </div>
-                </div>
-            </c:if>
-            <c:if test="${not empty requestScope.pageForUpdate}">
-            <form role="form" action="/controller?command=updatePage" method="post">
+            <c:if test="${not empty requestScope.pageforupdate}">
+            <form role="form" action="/controller?command=updatePage" class="container-fluid" method="post">
+                <input hidden name="pageId" value="${requestScope.pageforupdate.id}">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="pageTitleId" class="text-center" style="padding-left: 50%">
                                 Page title
                             </label>
-                            <input type="text" name="pageTitleForUpdate" pattern="^.{1,200}$" value="${pageForUpdate.title}" required lang="en" class="form-control" id="pageTitleId"/>
+                            <input type="text" name="pageTitleForUpdate" pattern="^.{1,200}$" value="${requestScope.pageforupdate.title}" required class="form-control" id="pageTitleId"/>
                         </div>
                     </div>
                 </div>
@@ -47,8 +39,8 @@
                             <label for="pageDescriptionId" class="text-center" style="padding-left: 50%">
                                 Page description
                             </label>
-                            <textarea type="text" pattern=".+" name="pageDescriptionForUpdate" required lang="en" class="form-control" style="height: 400px" id="pageDescriptionId">
-                                ${pageForUpdate.description}
+                            <textarea  type="text" pattern=".{1,}" name="pageDescriptionForUpdate" required lang="en" class="form-control" style="height: 400px" id="pageDescriptionId">
+                                ${requestScope.pageforupdate.description}
                             </textarea>
                         </div>
                     </div>
@@ -59,7 +51,7 @@
                             <label for="pageSlugId" class="text-center" style="padding-left: 50%">
                                 Page slug
                             </label>
-                            <input type="text" value="${pageForUpdate.slug}" pattern="^.{1,200}$" name="pageSlugForUpdate" required lang="en" class="form-control" id="pageSlugId"/>
+                            <input type="text" value="${pageforupdate.slug}" pattern="^.{1,200}$" name="pageSlugForUpdate" required lang="en" class="form-control" id="pageSlugId"/>
                         </div>
                     </div>
                 </div>
@@ -69,7 +61,7 @@
                             <label for="pageMenuLabelId" class="text-center" style="padding-left: 50%">
                                 Page menu label
                             </label>
-                            <input type="text" value="${pageForUpdate.menuLabel}" pattern="^.{1,200}$" name="pageMenuLabelForUpdate" required lang="en" class="form-control" id="pageMenuLabelId" />
+                            <input type="text" value="${requestScope.pageforupdate.menuLabel}" pattern="^.{1,200}$" name="pageMenuLabelForUpdate" required lang="en" class="form-control" id="pageMenuLabelId" />
                         </div>
                     </div>
                 </div>
@@ -79,7 +71,7 @@
                             <label for="pageH1Id" class="text-center" style="padding-left: 50%">
                                 Page H1
                             </label>
-                            <input type="text" value="${pageForUpdate.h1}" pattern="^.{1,200}$" name="pageH1ForUpdate" required lang="en" class="form-control" id="pageH1Id" />
+                            <input type="text" value="${requestScope.pageforupdate.h1}" pattern="^.{1,200}$" name="pageH1ForUpdate" required lang="en" class="form-control" id="pageH1Id" />
                         </div>
                     </div>
                 </div>
@@ -92,7 +84,7 @@
                             <p>
                                 <script>edToolbar('pageContentForCreate'); </script>
                                 <textarea id="pageContentForCreate" required name="pageContentForUpdate" class="ed" style="width: 100%; height: 400px">
-                                    ${pageForUpdate.content}
+                                    ${requestScope.pageforupdate.content}
                                 </textarea>
                             </p>
                         </div>
@@ -104,7 +96,7 @@
                             <label for="pageDatePublishedId" class="text-center" style="padding-left: 50%">
                                 Page date published
                             </label>
-                            <input type="date" value="${pageForUpdate.publishedAt}" required name="pageDatePublishedForUpdate" class="form-control" id="pageDatePublishedId" />
+                            <input type="date" value="${requestScope.pageforupdate.publishedAt}" required name="pageDatePublishedForUpdate" class="form-control" id="pageDatePublishedId" />
                         </div>
                     </div>
                 </div>
@@ -114,7 +106,7 @@
                             <label for="pagePriorityId" class="text-center" style="padding-left: 50%">
                                 Page priority
                             </label>
-                            <input type="number" value="${pageForUpdate.priority}" max="10" min="1" name="pagePriorityForUpdate" maxlength="2" minlength="1" required class="form-control" id="pagePriorityId" />
+                            <input type="number" value="${requestScope.pageforupdate.priority}" max="10" min="1" name="pagePriorityForUpdate" maxlength="2" minlength="1" required class="form-control" id="pagePriorityId" />
                         </div>
                     </div>
                 </div>

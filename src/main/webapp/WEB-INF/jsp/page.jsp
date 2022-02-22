@@ -30,21 +30,21 @@
 </head>
 <body>
 <header>
-    <input hidden name="pageSlug" value="${page.slug}">
     <div class="row" style="background-color: darkgray">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-4">
-                    <a href="/controller?command=showUpdatePage" class="btn btn-primary">
+                <div class="col-md-4 container-fliude">
+                    <a href="/controller?command=showUpdatePage&pageSlug=${requestScope.page.slug}" class="btn btn-primary">
                         Update page
                     </a>
                 </div>
-                <div class="col-md-4">
-                    <a href="/controller?command=deletePage" class="btn btn-primary">
-                        Delete page
-                    </a>
+                <div class="col-md-4 container-fliude">
+                    <form action="/controller?command=deletePage" class="btn btn-primary" method="post">
+                        <input hidden name="pageSlug" value="${requestScope.page.slug}">
+                        <button type="submit" class="btn btn-primary">Delete page</button>
+                    </form>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 container-fliude">
                     <a href="/controller?command=menuPage" class="btn btn-primary">
                         Cancel
                     </a>
@@ -56,15 +56,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <c:if test="${not empty requestScope.fail}">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="alert alert-dismissable alert-danger" style="width: 100%">
-                            <strong>Fail!</strong> ${requestScope.fail}
-                        </div>
-                    </div>
-                </div>
-            </c:if>
         </div>
     </div>
 </div>

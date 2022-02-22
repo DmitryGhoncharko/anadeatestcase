@@ -26,11 +26,4 @@ public class SimpleRequestFactory implements RequestFactory {
         return redirectResponseCache.computeIfAbsent(path, p -> new PlainCommandResponse(true, p));
     }
 
-    public static SimpleRequestFactory getInstance() {
-        return Holder.INSTANCE;
-    }
-
-    private static class Holder {
-        private static final SimpleRequestFactory INSTANCE = new SimpleRequestFactory();
-    }
 }

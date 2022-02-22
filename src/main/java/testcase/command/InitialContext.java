@@ -15,26 +15,34 @@ public class InitialContext {
     private final ConnectionPool hikariCPConnectionPool = new HikariCPConnectionPool();
     private final PageDao simplePageDao = new SimplePageDao(hikariCPConnectionPool);
     private final PageServiceValidator simplePageServiceValidator = new SimplePageServiceValidator();
-    private final PageService pageService = new SimplePageService(simplePageDao,simplePageServiceValidator);
+    private final PageService pageService = new SimplePageService(simplePageDao, simplePageServiceValidator);
     private final RequestFactory requestFactory = new SimpleRequestFactory();
-    public Command lookup(String commandName){
-        switch (commandName){
 
-            case "showPage": return new ShowPageCommand(pageService,requestFactory);
+    public Command lookup(String commandName) {
+        switch (commandName) {
 
-            case "showCreateNewPage": return new ShowCreateNewPageCommand(requestFactory);
+            case "showPage":
+                return new ShowPageCommand(pageService, requestFactory);
 
-            case "createPage" : return new CreatePageCommand(pageService,requestFactory);
+            case "showCreateNewPage":
+                return new ShowCreateNewPageCommand(requestFactory);
 
-            case "deletePage" : return new DeletePageCommand(pageService,requestFactory);
+            case "createPage":
+                return new CreatePageCommand(pageService, requestFactory);
 
-            case "showUpdatePage" : return  new ShowUpdatePageCommand(pageService,requestFactory);
+            case "deletePage":
+                return new DeletePageCommand(pageService, requestFactory);
 
-            case "updatePage" : return new UpdatePageCommand(pageService, requestFactory);
+            case "showUpdatePage":
+                return new ShowUpdatePageCommand(pageService, requestFactory);
+
+            case "updatePage":
+                return new UpdatePageCommand(pageService, requestFactory);
 
             case "menuPage":
 
-            default: return new ShowMenuPageCommand(pageService,requestFactory);
+            default:
+                return new ShowMenuPageCommand(pageService, requestFactory);
         }
     }
 }

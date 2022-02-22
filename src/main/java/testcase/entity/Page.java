@@ -3,7 +3,7 @@ package testcase.entity;
 import java.sql.Date;
 import java.util.Objects;
 
-public class Page{
+public class Page {
     private final long id;
     private final String title;
     private final String description;
@@ -14,7 +14,7 @@ public class Page{
     private final Date publishedAt;
     private final int priority;
 
-    private Page(Builder builder){
+    private Page(Builder builder) {
         id = builder.id;
         title = builder.title;
         description = builder.description;
@@ -109,7 +109,7 @@ public class Page{
                 '}';
     }
 
-    public static class Builder{
+    public static class Builder {
         private long id;
         private String title;
         private String description;
@@ -120,44 +120,52 @@ public class Page{
         private Date publishedAt;
         private int priority;
 
-        public Builder withId(long id){
+        public Builder withId(long id) {
             this.id = id;
             return this;
         }
 
-        public Builder withTitle(String title){
+        public Builder withTitle(String title) {
             this.title = title;
             return this;
         }
-        public Builder withDescription(String description){
+
+        public Builder withDescription(String description) {
             this.description = description;
             return this;
         }
-        public Builder withSlug(String slug){
+
+        public Builder withSlug(String slug) {
             this.slug = slug;
             return this;
         }
-        public Builder withMenuLabel(String menuLabel){
+
+        public Builder withMenuLabel(String menuLabel) {
             this.menuLabel = menuLabel;
             return this;
         }
-        public Builder withH1(String h1){
+
+        public Builder withH1(String h1) {
             this.h1 = h1;
             return this;
         }
-        public Builder withContent(String content){
+
+        public Builder withContent(String content) {
             this.content = content;
             return this;
         }
-        public Builder withDatePublished(Date publishedAt){
+
+        public Builder withDatePublished(Date publishedAt) {
             this.publishedAt = publishedAt;
             return this;
         }
-        public Builder withPriority(int priority){
+
+        public Builder withPriority(int priority) {
             this.priority = priority;
             return this;
         }
-        public Page build(){
+
+        public Page build() {
             return new Page(this);
         }
     }

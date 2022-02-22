@@ -2,11 +2,8 @@ package testcase.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import testcase.command.Command;
-import testcase.command.CommandRequest;
-import testcase.command.CommandResponse;
-import testcase.command.ServiceLocator;
-import testcase.exception.ServiceException;
+import testcase.command.*;
+import testcase.exception.ServiceError;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,30 +19,33 @@ public class Controller extends HttpServlet {
 
     private static final String COMMAND_NAME_PARAM = "command";
 
-    private static final RequestFactory REQUEST_FACTORY = RequestFactory.getInstance();
-    private static final ServiceLocator SERVICE_LOCATOR = new ServiceLocator();
+    private static final RequestFactory REQUEST_FACTORY = new SimpleRequestFactory();
+    private static final ServiceLocator SERVICE_LOCATOR = new SimpleServiceLocator();
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceError {
         LOG.trace("caught req and resp in doGet method");
         try {
             processRequest(req, resp);
-        } catch (ServiceException e) {
-            LOG.error("Service exception in doget method servlet",e);
+        } catch (ServiceError | IOException | ServletException e) {
+            LOG.error("Exception in doget method servlet", e);
+            throw e;
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceError {
 
         LOG.trace("caught req and resp in doPost method");
         try {
             processRequest(req, resp);
-        } catch (ServiceException e) {
-            LOG.error("Service exception in doget method servlet",e);
+        } catch (ServiceError | IOException | ServletException e) {
+            LOG.error("Service exception in doget method servlet", e);
+            throw e;
         }
     }
 
-    private void processRequest(HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws ServiceException {
+    private void processRequest(HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws ServiceError, IOException, ServletException {
         final String commandName = httpRequest.getParameter(COMMAND_NAME_PARAM);
         final Command command = SERVICE_LOCATOR.getCommand(commandName);
         final CommandRequest commandRequest = REQUEST_FACTORY.createRequest(httpRequest);
@@ -54,14 +54,10 @@ public class Controller extends HttpServlet {
     }
 
     private void proceedWithResponse(HttpServletRequest req, HttpServletResponse resp,
-                                     CommandResponse commandResponse) {
-        try {
-            forwardOrRedirectToResponseLocation(req, resp, commandResponse);
-        } catch (ServletException e) {
-            LOG.error("servlet exception occurred", e);
-        } catch (IOException e) {
-            LOG.error("IO exception occurred", e);
-        }
+                                     CommandResponse commandResponse) throws IOException, ServletException {
+
+        forwardOrRedirectToResponseLocation(req, resp, commandResponse);
+
     }
 
     private void forwardOrRedirectToResponseLocation(HttpServletRequest req, HttpServletResponse resp,

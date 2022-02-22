@@ -3,8 +3,6 @@ package testcase.controller;
 import testcase.command.CommandRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 public class WrappingCommandRequest implements CommandRequest {
 
@@ -22,49 +20,5 @@ public class WrappingCommandRequest implements CommandRequest {
     @Override
     public String getParameter(String name) {
         return request.getParameter(name);
-    }
-
-    @Override
-    public boolean sessionExists() {
-        return request.getSession(false) != null;
-    }
-
-    @Override
-    public boolean addToSession(String name, Object value) {
-        final HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.setAttribute(name, value);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Optional<Object> retrieveFromSession(String name) {
-        return Optional.ofNullable(request.getSession(false))
-                .map(session -> session.getAttribute(name));
-    }
-
-    @Override
-    public void clearSession() {
-        final HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-    }
-
-    @Override
-    public void removeFromSession(String name) {
-        request.getSession().removeAttribute(name);
-    }
-
-    @Override
-    public void createSession() {
-        request.getSession(true);
-    }
-
-    @Override
-    public String getURI() {
-        return String.valueOf(request.getRequestURI());
     }
 }
