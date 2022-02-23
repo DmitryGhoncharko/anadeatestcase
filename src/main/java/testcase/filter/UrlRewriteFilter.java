@@ -19,10 +19,10 @@ import java.util.regex.Pattern;
 @WebFilter(filterName = "urlRewriteFilter")
 public class UrlRewriteFilter implements Filter {
     private static final Logger LOG = LoggerFactory.getLogger(UrlRewriteFilter.class);
-    private static final String REGEXP_FOR_FIND_COMMAND_FOR_SERVLET = "^http://.+[0-9]+/controller\\?command=[a-zA-Z0-9]+([&][a-zA-Z0-9]+[=][a-zA-Z0-9]+)*$";
-    private static final String REGEXP_FOR_STATIC_CONTENT = "^http://.+[0-9]+/static/images.*";
+    private static final String REGEXP_FOR_FIND_COMMAND_FOR_SERVLET = "^http://.+/controller\\?command=[a-zA-Z0-9]+([&][a-zA-Z0-9]+[=][a-zA-Z0-9]+)*$";
+    private static final String REGEXP_FOR_STATIC_CONTENT = "^http://.+/static/images.*";
     private static final String CONTROLLER_COMMAND_SHOW_PAGE_BY_PAGE_SLUG = "/controller?command=showPage&pageSlug=";
-    private static final String REGEXP_FOR_EXTRACT_SLUG_FROM_URL = "^http://.+[0-9]+/";
+    private static final String REGEXP_FOR_EXTRACT_SLUG_FROM_URL = "^http://.+/";
     private static final String REPLACEMENT_ON_EMPTY_TEXT = "";
     private static final String URL_PARAM_DEFINITOIN_SYMBOL = "?";
 
