@@ -38,7 +38,7 @@
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Show unpublished pages</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     <c:forEach var="notPublishedPage" items="${requestScope.notPublishedPages}">
-                        <a href="${notPublishedPage.menuLabel}">${notPublishedPage.menuLabel}</a>
+                        <a href="${notPublishedPage.slug}">${notPublishedPage.menuLabel}</a>
                     </c:forEach>
                 </div>
             </li>
