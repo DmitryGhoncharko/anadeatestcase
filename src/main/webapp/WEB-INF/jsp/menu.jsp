@@ -47,7 +47,7 @@
                                 ${publishedPage.id}
                             </td>
                             <td>
-                                <a href="${publishedPage.menuLabel}" class="btn btn-primary">
+                                <a href="${publishedPage.slug}" class="btn btn-primary">
                                         ${publishedPage.menuLabel}
                                 </a>
 
