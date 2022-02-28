@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class SimplePageServiceValidator implements PageServiceValidator {
     private static final String REGEXP_PATTERN_FOR_VARCHAR_FIELDS = "^.{1,200}$";
-    private static final String REGEXP_PATTERN_FOR_TEXT_FIELDS = "^.{1,}$";
+    private static final String REGEXP_PATTERN_FOR_TEXT_FIELDS = ".{1,}";
     private static final String REGEXP_PATTERN_FOR_INTEGER_FIELDS = "^[0-9]{1,2}$";
 
     @Override

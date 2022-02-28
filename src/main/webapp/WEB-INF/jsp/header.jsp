@@ -33,15 +33,5 @@
                 <a class="nav-link" href="/controller?command=showCreateNewPage">Create new page <span class="sr-only">(current)</span></a>
             </li>
         </ul>
-        <ul class="navbar-nav ml-md-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Show unpublished pages</a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <c:forEach var="notPublishedPage" items="${requestScope.notPublishedPages}">
-                        <a href="${notPublishedPage.slug}">${notPublishedPage.menuLabel}</a>
-                    </c:forEach>
-                </div>
-            </li>
-        </ul>
     </div>
 </nav>
