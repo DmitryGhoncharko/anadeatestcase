@@ -66,6 +66,57 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Show  unpublished pages
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <table class="table table-bordered dropdown-item">
+                        <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Label
+                            </th>
+                            <th>
+                                Priority
+                            </th>
+                            <th>
+                                Date published
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="notPublishedPage" items="${requestScope.notPublishedPages}">
+                            <tr>
+                                <td>
+                                        ${notPublishedPage.id}
+                                </td>
+                                <td>
+                                    <a href="${notPublishedPage.slug}" class="btn btn-primary">
+                                            ${notPublishedPage.menuLabel}
+                                    </a>
+
+                                </td>
+                                <td>
+                                        ${notPublishedPage.priority}
+                                </td>
+                                <td>
+                                        ${notPublishedPage.publishedAt}
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 </body>
 </html>
