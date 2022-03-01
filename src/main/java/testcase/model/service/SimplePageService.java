@@ -24,9 +24,6 @@ public class SimplePageService implements PageService {
 
     @Override
     public Optional<Page> createPage(String title, String description, String slug, String menuLabel, String h1, Date publishedAt, Integer priority, String content) throws ServiceError {
-        if (!pageServiceValidator.validateCreateOrUpdatePage(title, description, slug, menuLabel, h1, publishedAt, priority, content)) {
-            return Optional.empty();
-        }
         try {
             final Page page = createPageByParam(title, description, slug, menuLabel, h1, publishedAt, priority, content);
             return pageDao.createPage(page);
@@ -38,9 +35,6 @@ public class SimplePageService implements PageService {
 
     @Override
     public Optional<Page> updatePageById(String title, String description, String slug, String menuLabel, String h1, Date publishedAt, Integer priority, String content, Long pageId) throws ServiceError {
-        if (!pageServiceValidator.validateCreateOrUpdatePage(title, description, slug, menuLabel, h1, publishedAt, priority, content, pageId)) {
-            return Optional.empty();
-        }
         try {
             final Page page = createPageByParam(title, description, slug, menuLabel, h1, publishedAt, priority, content, pageId);
             return pageDao.updatePageById(page);
