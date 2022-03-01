@@ -1,7 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+    <%@include file="/WEB-INF/css/checkbox.css"%>
+</style>
 <html>
+<script>
+   function showNotPublishedPagesOnpage() {
+       if (document.getElementById('dontPublishedPages').getAttribute('hidden')==null) {
+           document.getElementById('dontPublishedPages').setAttribute('hidden', 'true')
+       }else {
+           document.getElementById('dontPublishedPages').removeAttribute('hidden')
+       }
+   }
+</script>
 <head>
     <title>Menu page</title>
 </head>
@@ -17,8 +29,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="text-center">
-                        Published pages
+                        Pages
                     </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Show not published pages</h1>
+                    <label class="checkbox-green" title="show not published pages">
+                        <input type="checkbox" value="0" name="showNotPublishedPagesCheckBox" onclick="showNotPublishedPagesOnpage()">
+                        <span class="checkbox-green-switch" data-label-on="On" data-label-off="Off"></span>
+                    </label>
                 </div>
             </div>
             <div class="row">
@@ -61,36 +82,7 @@
                         </tr>
                         </c:forEach>
                         </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Show  unpublished pages
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <table class="table table-bordered dropdown-item">
-                        <thead>
-                        <tr>
-                            <th>
-                                Id
-                            </th>
-                            <th>
-                                Label
-                            </th>
-                            <th>
-                                Priority
-                            </th>
-                            <th>
-                                Date published
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                        <tbody id="dontPublishedPages" hidden>
                         <c:forEach var="notPublishedPage" items="${requestScope.notPublishedPages}">
                             <tr>
                                 <td>
@@ -100,7 +92,6 @@
                                     <a href="${notPublishedPage.slug}" class="btn btn-primary">
                                             ${notPublishedPage.menuLabel}
                                     </a>
-
                                 </td>
                                 <td>
                                         ${notPublishedPage.priority}
@@ -114,7 +105,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
